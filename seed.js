@@ -7,7 +7,7 @@ require("dotenv").config();
 
 const { DB_HOST } = process.env;
 
-const positions = require("./fake_data/abz-test.positions.json");
+const positions = require("./helpers/abz-test.positions.json");
 
 const User = require("./models/user");
 
@@ -71,8 +71,6 @@ const generateUsers = (number) => {
 };
 
 const usersData = generateUsers(40);
-
-//console.log(usersData);
 
 User.insertMany(usersData)
   .then((docs) =>

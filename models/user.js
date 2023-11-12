@@ -1,23 +1,34 @@
 const { Schema, model } = require("mongoose");
+const { handleMongooseError } = require("../middlewares");
+const {
+  emailRegExp,
+  phoneRegExp,
+  nameRequiredMessage,
+  emailRequiredMessage,
+  phoneRequiredMessage,
+  pswrdRequiredMessage,
+} = require("../helpers/constants");
 
 const userSchema = new Schema(
   {
     name: {
       type: String,
-      required: [true, "missing required name field"],
+      required: [true, nameRequiredMessage],
       minlength: 2,
       maxLength: 60,
     },
     email: {
       type: String,
-      match: /^\S+@\S+\.\S+$/, // should be replaced by RFC2822 RegExp
+      match: emailRegExp,
       unique: true,
-      required: [true, "missing required email field"],
+      required: [true, emailRequiredMessage],
+      minlength: 2,
+      maxLength: 100,
     },
     phone: {
       type: String,
-      required: [true, "missing required email field"],
-      match: /^\+380[0-9]{9}$/,
+      required: [true, phoneRequiredMessage],
+      match: phoneRegExp,
     },
     position: {
       type: String,
@@ -29,15 +40,18 @@ const userSchema = new Schema(
     password: {
       type: String,
       minlength: 6,
-      required: [true, "missing required password field"],
+      required: [true, pswrdRequiredMessage],
     },
     photo: {
       type: String,
+      required: true,
     },
     token: { type: String },
   },
   { versionKey: false, timestamps: true }
 );
+
+userSchema.post("save", handleMongooseError);
 
 const User = model("user", userSchema);
 
