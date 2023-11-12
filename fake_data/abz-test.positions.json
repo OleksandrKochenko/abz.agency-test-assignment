@@ -1,0 +1,120 @@
+[{
+  "_id": {
+    "$oid": "654ff0e0ad97da99855ab4b5"
+  },
+  "title": "Technician",
+  "createdAt": {
+    "$date": "2023-11-11T21:23:44.612Z"
+  },
+  "updatedAt": {
+    "$date": "2023-11-11T21:23:44.612Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "654ff14b83c48061481699b2"
+  },
+  "title": "Analyst",
+  "createdAt": {
+    "$date": "2023-11-11T21:25:31.420Z"
+  },
+  "updatedAt": {
+    "$date": "2023-11-11T21:25:31.420Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "654ff14b83c48061481699b3"
+  },
+  "title": "Designer",
+  "createdAt": {
+    "$date": "2023-11-11T21:25:31.421Z"
+  },
+  "updatedAt": {
+    "$date": "2023-11-11T21:25:31.421Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "654ff14b83c48061481699b4"
+  },
+  "title": "Consultant",
+  "createdAt": {
+    "$date": "2023-11-11T21:25:31.421Z"
+  },
+  "updatedAt": {
+    "$date": "2023-11-11T21:25:31.421Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "654ff14b83c48061481699b6"
+  },
+  "title": "Associate",
+  "createdAt": {
+    "$date": "2023-11-11T21:25:31.421Z"
+  },
+  "updatedAt": {
+    "$date": "2023-11-11T21:25:31.421Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "654ff174799fdb1936ecc4ca"
+  },
+  "title": "Assistant",
+  "createdAt": {
+    "$date": "2023-11-11T21:26:12.062Z"
+  },
+  "updatedAt": {
+    "$date": "2023-11-11T21:26:12.062Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "654ff174799fdb1936ecc4cb"
+  },
+  "title": "Developer",
+  "createdAt": {
+    "$date": "2023-11-11T21:26:12.062Z"
+  },
+  "updatedAt": {
+    "$date": "2023-11-11T21:26:12.062Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "654ff174799fdb1936ecc4cc"
+  },
+  "title": "Representative",
+  "createdAt": {
+    "$date": "2023-11-11T21:26:12.062Z"
+  },
+  "updatedAt": {
+    "$date": "2023-11-11T21:26:12.062Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "654ff174799fdb1936ecc4cd"
+  },
+  "title": "QA Engineer",
+  "createdAt": {
+    "$date": "2023-11-11T21:26:12.063Z"
+  },
+  "updatedAt": {
+    "$date": "2023-11-11T21:26:12.063Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "654ff2238b28c5fbe8968ac9"
+  },
+  "title": "Product Manager",
+  "createdAt": {
+    "$date": "2023-11-11T21:29:07.851Z"
+  },
+  "updatedAt": {
+    "$date": "2023-11-11T21:29:07.851Z"
+  }
+}]
