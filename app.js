@@ -4,6 +4,7 @@ const logger = require("morgan");
 require("dotenv").config();
 
 const authRouter = require("./routes/auth-routes");
+const apiRouter = require("./routes/api-routes");
 
 const app = express();
 
@@ -16,7 +17,7 @@ app.use(express.json());
 
 app.use("/auth", authRouter);
 
-//app.use("/api", apiRouter); //
+app.use("/api", apiRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
