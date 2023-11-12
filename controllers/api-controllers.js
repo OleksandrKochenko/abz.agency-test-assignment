@@ -2,6 +2,41 @@ const httpError = require("../helpers/http-error");
 const User = require("../models/user");
 const Position = require("../models/position");
 
+const getUsers = async (req, res, next) => {
+  try {
+    const { page = 1, offset, count: limit = 5 } = req.query;
+    const skip = offset ? offset : (page - 1) * limit;
+    const users = await User.find({}, "-password")
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+    const total_users = await User.count();
+    const total_pages = Math.ceil(total_users / limit);
+    const currentPage = skip / limit + 1;
+    const next_url =
+      currentPage === total_pages
+        ? null
+        : `/api/users?page=${currentPage + 1}&count=${limit}`;
+    const prev_url =
+      currentPage === 1
+        ? null
+        : `/api/users?page=${currentPage - 1}&count=${limit}`;
+    res.json({
+      success: true,
+      page: currentPage,
+      total_pages,
+      count: parseInt(limit),
+      links: {
+        next_url,
+        prev_url,
+      },
+      users,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const findUserById = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -32,6 +67,7 @@ const getPositions = async (req, res, next) => {
 };
 
 module.exports = {
+  getUsers,
   findUserById,
   getPositions,
 };
