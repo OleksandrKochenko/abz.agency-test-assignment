@@ -44,7 +44,6 @@ const userSchema = new Schema(
     },
     photo: {
       type: String,
-      required: true,
     },
     token: { type: String },
   },

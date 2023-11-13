@@ -1,6 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const { validateUserRegistration } = require("../middlewares");
+const {
+  validateUserRegistration,
+  upload,
+  isValidImg,
+  authenticate,
+} = require("../middlewares");
 const {
   userRegistration,
   registrationToken,
@@ -8,6 +13,13 @@ const {
 
 router.get("/token", registrationToken);
 
-router.post("/users", validateUserRegistration, userRegistration);
+router.post(
+  "/users",
+  authenticate,
+  upload.single("photo"),
+  isValidImg,
+  validateUserRegistration,
+  userRegistration
+);
 
 module.exports = router;

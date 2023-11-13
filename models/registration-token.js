@@ -5,6 +5,9 @@ const registrationTokenSchema = new Schema(
     registrationToken: {
       type: String,
     },
+    tokenId: {
+      type: String,
+    },
   },
   {
     timestamps: true,

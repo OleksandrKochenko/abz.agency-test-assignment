@@ -15,6 +15,8 @@ app.use(cors());
 
 app.use(express.json());
 
+app.use(express.static("public"));
+
 app.use("/auth", authRouter);
 
 app.use("/api", apiRouter);
@@ -25,7 +27,7 @@ app.use((req, res) => {
 
 app.use((err, req, res, next) => {
   const { status = 500, message } = err;
-  res.status(status).json({ message });
+  res.status(status).json({ message, success: false });
 });
 
 module.exports = app;

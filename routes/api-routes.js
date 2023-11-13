@@ -7,10 +7,10 @@ const {
 } = require("../controllers/api-controllers");
 const router = express.Router();
 
-router.use("/users", getUsers);
+router.get("/users", getUsers);
 
-router.use("/users/:id", isValidId, findUserById);
+router.get("/users/:id", isValidId, findUserById);
 
-router.use("/positions", getPositions);
+router.get("/positions", getPositions);
 
 module.exports = router;

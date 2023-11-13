@@ -46,7 +46,6 @@ const userRegistrationSchema = Joi.object({
       "string.min": `${invalidLenthMessage}`,
     }),
   position_id: Joi.string().required(),
-  photo: Joi.string().required(), //
 });
 
 const validateUserRegistration = (req, res, next) => {
@@ -54,6 +53,7 @@ const validateUserRegistration = (req, res, next) => {
   if (error) {
     throw httpError(400, error.message);
   }
+  next();
 };
 
 module.exports = validateUserRegistration;

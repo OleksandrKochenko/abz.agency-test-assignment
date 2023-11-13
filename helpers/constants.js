@@ -5,6 +5,7 @@ const emailRequiredMessage = "missing required email field";
 const phoneRequiredMessage = "missing required phone field";
 const pswrdRequiredMessage = "missing required password field";
 const invalidLenthMessage = "invalid length of password";
+const imageFormats = ["image/jpeg"]; // image formats could be extendet here
 
 module.exports = {
   emailRegExp,
@@ -14,4 +15,5 @@ module.exports = {
   phoneRequiredMessage,
   pswrdRequiredMessage,
   invalidLenthMessage,
+  imageFormats,
 };
