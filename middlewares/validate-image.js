@@ -8,18 +8,18 @@ const isValidImg = async (req, res, next) => {
   const file = req.file;
   try {
     if (!file) {
-      throw httpError(400, "file upload is required");
+      throw httpError(422, "file upload is required");
     }
     if (!imageFormats.includes(file.mimetype)) {
-      throw httpError(422, "Unsupported image type");
+      throw httpError(422, "unsupported image type");
     }
     const image = await sharp(file.path);
     const metadata = await image.metadata();
     if (metadata.width < 70 || metadata.height < 70) {
-      throw httpError(422, "Image is invalid.");
+      throw httpError(422, "invalid image resolution");
     }
     if (file.size > 5000000) {
-      throw httpError(422, "The photo may not be greater than 5 Mbytes");
+      throw httpError(422, "the photo may not be greater than 5 Mbytes");
     }
     next();
   } catch (error) {

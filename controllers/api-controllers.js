@@ -25,6 +25,7 @@ const getUsers = async (req, res, next) => {
       success: true,
       page: currentPage,
       total_pages,
+      total_users,
       count: parseInt(limit),
       links: {
         next_url,

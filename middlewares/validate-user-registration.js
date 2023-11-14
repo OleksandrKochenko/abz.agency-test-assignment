@@ -1,12 +1,11 @@
 const Joi = require("joi");
+const fs = require("fs/promises");
+
 const {
-  nameRequiredMessage,
+  requiredMessage,
   invalidLenthMessage,
   emailRegExp,
-  emailRequiredMessage,
-  pswrdRequiredMessage,
   phoneRegExp,
-  phoneRequiredMessage,
 } = require("../helpers/constants");
 const httpError = require("../helpers/http-error");
 
@@ -16,7 +15,7 @@ const userRegistrationSchema = Joi.object({
     .max(60)
     .required()
     .messages({
-      "any.required": `${nameRequiredMessage}`,
+      "any.required": `name ${requiredMessage}`,
       "string.min": `${invalidLenthMessage}`,
       "string.max": `${invalidLenthMessage}`,
     }),
@@ -26,7 +25,7 @@ const userRegistrationSchema = Joi.object({
     .pattern(emailRegExp)
     .required()
     .messages({
-      "any.required": `${emailRequiredMessage}`,
+      "any.required": `email ${requiredMessage}`,
       "string.pattern.base": `invalid email`,
       "string.min": `${invalidLenthMessage}`,
       "string.max": `${invalidLenthMessage}`,
@@ -35,25 +34,35 @@ const userRegistrationSchema = Joi.object({
     .pattern(phoneRegExp)
     .required()
     .messages({
-      "any.required": `${phoneRequiredMessage}`,
+      "any.required": `phone ${requiredMessage}`,
       "string.pattern.base": `invalid phone`,
     }),
   password: Joi.string()
     .min(6)
     .required()
     .messages({
-      "any.required": `${pswrdRequiredMessage}`,
+      "any.required": `password ${requiredMessage}`,
       "string.min": `${invalidLenthMessage}`,
     }),
-  position_id: Joi.string().required(),
+  position_id: Joi.string()
+    .required()
+    .messages({
+      "any.required": `position_id ${requiredMessage}`,
+    }),
 });
 
-const validateUserRegistration = (req, res, next) => {
-  const { error } = userRegistrationSchema.validate(req.body);
-  if (error) {
-    throw httpError(400, error.message);
+const validateUserRegistration = async (req, res, next) => {
+  try {
+    const { error } = userRegistrationSchema.validate(req.body);
+    if (error) {
+      throw httpError(422, error.message);
+    }
+    next();
+  } catch (error) {
+    const { file } = req;
+    file && (await fs.unlink(file.path));
+    next(error);
   }
-  next();
 };
 
 module.exports = validateUserRegistration;

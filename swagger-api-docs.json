@@ -1,0 +1,406 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "REST API for user operations",
+    "description": "Abz.agency test assignment API documentation",
+    "contact": {
+      "name": "Oleksandr Kochenko",
+      "url": "https://oleksandrkochenko.github.io/CV/",
+      "email": "kochenko.fop@gmail.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://abz-agency-ta.onrender.com/",
+      "description": "API docs on web-server"
+    },
+    {
+      "url": "http://localhost:3000/",
+      "description": "API docs on localhost"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "User authorisation"
+    },
+    {
+      "name": "Api",
+      "description": "User operations"
+    }
+  ],
+  "paths": {
+    "/auth/token": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "returns registration token",
+        "operationId": "getToken",
+        "responses": {
+          "200": {
+            "description": "operation success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/users": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "register user",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/auth_users_body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_201"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "unauthorized request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_401"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_409"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "body validation fail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_422"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/api/users": {
+      "get": {
+        "tags": [
+          "Api"
+        ],
+        "description": "returns users",
+        "operationId": "getUsers",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page number",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "2"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "number of skipped documents",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "20"
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "documents per page",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "example": "5"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operation success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_1"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/{id}": {
+      "get": {
+        "tags": [
+          "Api"
+        ],
+        "description": "returns users",
+        "operationId": "getUserById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of user to return",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "6550a1d4c7a23f30181b253e",
+                "6550a1d4c7a23f30181b2542",
+                "6550a1d4c7a23f30181b2545"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_2"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/positions": {
+      "get": {
+        "tags": [
+          "Api"
+        ],
+        "description": "returns positions",
+        "operationId": "getPositions",
+        "responses": {
+          "200": {
+            "description": "operation success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_3"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "65538751b374715901fe334a"
+          },
+          "name": {
+            "type": "string",
+            "example": "Li Wein"
+          },
+          "email": {
+            "type": "string",
+            "example": "l.wein@mail.com"
+          },
+          "phone": {
+            "type": "string",
+            "example": "+380990555555"
+          },
+          "position": {
+            "type": "string",
+            "example": "Developer"
+          },
+          "position_id": {
+            "type": "string",
+            "example": "654ff174799fdb1936ecc4cb"
+          },
+          "photo": {
+            "type": "string",
+            "example": "http://res.cloudinary.com/dvloxectq/image/upload/v1699972944/users/gocbynfvtecaobtfrbvd.jpg"
+          }
+        }
+      },
+      "Position": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "654ff14b83c48061481699b3"
+          },
+          "title": {
+            "type": "string",
+            "example": "Designer"
+          }
+        }
+      },
+      "NotFound": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": false
+          },
+          "message": {
+            "type": "string",
+            "example": "Page not found"
+          }
+        }
+      },
+      "ServerError": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": false
+          },
+          "message": {
+            "type": "string",
+            "example": "Server error"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const logger = require("morgan");
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger-api-docs.json");
 require("dotenv").config();
 
 const authRouter = require("./routes/auth-routes");
@@ -17,12 +19,14 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 app.use("/auth", authRouter);
 
 app.use("/api", apiRouter);
 
 app.use((req, res) => {
-  res.status(404).json({ message: "Not found" });
+  res.status(404).json({ message: "Page not found" });
 });
 
 app.use((err, req, res, next) => {

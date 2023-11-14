@@ -20,7 +20,7 @@ const registrationToken = async (req, res, next) => {
       expiresIn: "40m",
     });
     await RegistrationToken.insertMany({ registrationToken: token, tokenId });
-    res.json({ success: "true", token });
+    res.json({ success: true, token });
   } catch (error) {
     next(error);
   }
