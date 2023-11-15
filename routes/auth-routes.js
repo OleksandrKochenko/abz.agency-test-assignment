@@ -1,5 +1,4 @@
 const express = require("express");
-const router = express.Router();
 const {
   validateUserRegistration,
   upload,
@@ -10,6 +9,8 @@ const {
   userRegistration,
   registrationToken,
 } = require("../controllers/auth-controllers");
+
+const router = express.Router();
 
 router.get("/token", registrationToken);
 

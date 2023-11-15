@@ -17,7 +17,7 @@
   "servers": [
     {
       "url": "https://abz-agency-ta.onrender.com/",
-      "description": "API docs on web-server"
+      "description": "API docs on web-service"
     },
     {
       "url": "http://localhost:3000/",
@@ -393,150 +393,211 @@
             "example": "Server error"
           }
         }
-      }
-    },
-    "inline_response_201": {
-      "type": "object",
-      "properties": {
-        "success": {
-          "type": "boolean",
-          "description": "operation status",
-          "example": true
-        },
-        "user_id": {
-          "type": "string",
-          "description": "created user id",
-          "example": "65538751b374715901fe334a"
-        },
-        "message": {
-          "type": "string",
-          "description": "operation message",
-          "example": "New user successfully registered"
+      },
+      "inline_response_200": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "operation status",
+            "example": true
+          },
+          "token": {
+            "type": "string",
+            "description": "registration token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbklkIjoiOG93dko2SWNMREEtaXdfaHZQVThTIiwiaWF0IjoxNjk5OTU4NTA0LCJleHAiOjE2OTk5NjA5MDR9.ikSm4LTRPTnzAHw-73-GszQmgXzC64fXjnUHbqXXYWU"
+          }
         }
-      }
-    },
-    "inline_response_401": {
-      "type": "object",
-      "properties": {
-        "success": {
-          "type": "boolean",
-          "description": "operation status",
-          "example": false
-        },
-        "message": {
-          "type": "string",
-          "description": "operation message",
-          "example": "Unauthorized: not valid token"
+      },
+      "auth_users_body": {
+        "required": [
+          "email",
+          "name",
+          "password",
+          "phone",
+          "photo",
+          "position_id"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Username should contain 2-60 characters",
+            "example": "John Johnson"
+          },
+          "email": {
+            "type": "string",
+            "description": "User email, must be a valid email",
+            "format": "email",
+            "example": "test.user@mail.com"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number should start with code +380 followed by 9 numbers",
+            "format": "phone",
+            "example": "+380990010203"
+          },
+          "password": {
+            "type": "string",
+            "description": "Min 6 characters",
+            "format": "password",
+            "example": "Ng67$32_"
+          },
+          "position_id": {
+            "type": "string",
+            "description": "Position id should be valid MongoDB object id",
+            "example": "654ff174799fdb1936ecc4cb"
+          },
+          "photo": {
+            "type": "string",
+            "description": "Minimum size - 70x70px. Available only jpeg/jpg type. Maximum file size - 5 Mb.",
+            "format": "binary"
+          }
         }
-      }
-    },
-    "inline_response_409": {
-      "type": "object",
-      "properties": {
-        "success": {
-          "type": "boolean",
-          "description": "operation status",
-          "example": false
-        },
-        "message": {
-          "type": "string",
-          "description": "operation message",
-          "example": "User with this phone or email already exist"
+      },
+      "inline_response_201": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "operation status",
+            "example": true
+          },
+          "user_id": {
+            "type": "string",
+            "description": "created user id",
+            "example": "65538751b374715901fe334a"
+          },
+          "message": {
+            "type": "string",
+            "description": "operation message",
+            "example": "New user successfully registered"
+          }
         }
-      }
-    },
-    "inline_response_422": {
-      "type": "object",
-      "properties": {
-        "success": {
-          "type": "boolean",
-          "description": "operation status",
-          "example": false
-        },
-        "message": {
-          "type": "string",
-          "description": "operation message",
-          "example": "[\"invalid field length\",\"name/email/phone/password/position_id field required\",\"invalid phone/email\",\"file upload is required\",\"unsupported image type\",\"invalid image resolution\",\"the photo may not be greater than 5 Mbytes\"]"
+      },
+      "inline_response_401": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "operation status",
+            "example": false
+          },
+          "message": {
+            "type": "string",
+            "description": "operation message",
+            "example": "Unauthorized: not valid token"
+          }
         }
-      }
-    },
-    "inline_response_200_1": {
-      "type": "object",
-      "properties": {
-        "success": {
-          "type": "boolean",
-          "description": "operation status",
-          "example": true
-        },
-        "page": {
-          "type": "number",
-          "description": "current page",
-          "example": 1
-        },
-        "total_pages": {
-          "type": "number",
-          "description": "total pages",
-          "example": 10
-        },
-        "total_users": {
-          "type": "number",
-          "description": "total users",
-          "example": 48
-        },
-        "count": {
-          "type": "number",
-          "description": "documents per page",
-          "example": 5
-        },
-        "links": {
-          "$ref": "#/components/schemas/inline_response_200_1_links"
-        },
-        "users": {
-          "type": "array",
-          "items": {
+      },
+      "inline_response_409": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "operation status",
+            "example": false
+          },
+          "message": {
+            "type": "string",
+            "description": "operation message",
+            "example": "User with this phone or email already exist"
+          }
+        }
+      },
+      "inline_response_422": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "operation status",
+            "example": false
+          },
+          "message": {
+            "type": "string",
+            "description": "operation message",
+            "example": "[\"invalid field length\",\"name/email/phone/password/position_id field required\",\"invalid phone/email\",\"file upload is required\",\"unsupported image type\",\"invalid image resolution\",\"the photo may not be greater than 5 Mbytes\"]"
+          }
+        }
+      },
+      "inline_response_200_1": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "operation status",
+            "example": true
+          },
+          "page": {
+            "type": "number",
+            "description": "current page",
+            "example": 1
+          },
+          "total_pages": {
+            "type": "number",
+            "description": "total pages",
+            "example": 10
+          },
+          "total_users": {
+            "type": "number",
+            "description": "total users",
+            "example": 48
+          },
+          "count": {
+            "type": "number",
+            "description": "documents per page",
+            "example": 5
+          },
+          "links": {
+            "$ref": "#/components/schemas/inline_response_200_1_links"
+          },
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/User"
+            }
+          }
+        }
+      },
+      "inline_response_200_2": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "user": {
             "$ref": "#/components/schemas/User"
           }
         }
-      }
-    },
-    "inline_response_200_2": {
-      "type": "object",
-      "properties": {
-        "success": {
-          "type": "boolean",
-          "example": true
-        },
-        "user": {
-          "$ref": "#/components/schemas/User"
-        }
-      }
-    },
-    "inline_response_200_3": {
-      "type": "object",
-      "properties": {
-        "success": {
-          "type": "boolean",
-          "example": true
-        },
-        "positions": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/Position"
+      },
+      "inline_response_200_3": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "positions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Position"
+            }
           }
         }
-      }
-    },
-    "inline_response_200_1_links": {
-      "type": "object",
-      "properties": {
-        "next_url": {
-          "type": "string",
-          "nullable": true,
-          "example": "/api/users?page=2&count=5"
-        },
-        "prev_url": {
-          "type": "string",
-          "nullable": true
+      },
+      "inline_response_200_1_links": {
+        "type": "object",
+        "properties": {
+          "next_url": {
+            "type": "string",
+            "nullable": true,
+            "example": "/api/users?page=2&count=5"
+          },
+          "prev_url": {
+            "type": "string",
+            "nullable": true
+          }
         }
       }
     },
