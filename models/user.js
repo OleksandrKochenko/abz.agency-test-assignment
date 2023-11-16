@@ -3,17 +3,14 @@ const { handleMongooseError } = require("../middlewares");
 const {
   emailRegExp,
   phoneRegExp,
-  nameRequiredMessage,
-  emailRequiredMessage,
-  phoneRequiredMessage,
-  pswrdRequiredMessage,
+  requiredMessage,
 } = require("../helpers/constants");
 
 const userSchema = new Schema(
   {
     name: {
       type: String,
-      required: [true, nameRequiredMessage],
+      required: [true, requiredMessage],
       minlength: 2,
       maxLength: 60,
     },
@@ -21,13 +18,13 @@ const userSchema = new Schema(
       type: String,
       match: emailRegExp,
       unique: true,
-      required: [true, emailRequiredMessage],
+      required: [true, requiredMessage],
       minlength: 2,
       maxLength: 100,
     },
     phone: {
       type: String,
-      required: [true, phoneRequiredMessage],
+      required: [true, requiredMessage],
       match: phoneRegExp,
     },
     position: {
@@ -40,7 +37,7 @@ const userSchema = new Schema(
     password: {
       type: String,
       minlength: 6,
-      required: [true, pswrdRequiredMessage],
+      required: [true, requiredMessage],
     },
     photo: {
       type: String,
